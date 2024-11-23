@@ -89,8 +89,7 @@ export const getMovie = (args) => {
 
   export const getUpcomingMovies = ({ queryKey }) => {
     const [, idPart] = queryKey;
-    const { id } = idPart;
-
+  
     return fetch(
       `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}`
     ).then( (response) => {
