@@ -1,13 +1,13 @@
 import React from "react";
-import { getUpcomingMovies } from "../api/tmdb-api";
+import { getTrendingMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 
-const UpcomingMoviesPage = () => {
+const TrendingPage = (props) => {
 
-  const {  data, error, isLoading, isError }  = useQuery('discover', getUpcomingMovies)
+  const {  data, error, isLoading, isError }  = useQuery('discover', [{timeWindow: "day"}], getTrendingMovies)
 
   if (isLoading) {
     return <Spinner />
@@ -20,7 +20,7 @@ const UpcomingMoviesPage = () => {
 
   return (
     <PageTemplate
-      title="Upcoming Movies"
+      title="Trending Movies"
       movies={movies}
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />
@@ -28,5 +28,4 @@ const UpcomingMoviesPage = () => {
     />
 );
 };
-
-export default UpcomingMoviesPage;
+export default TrendingPage;

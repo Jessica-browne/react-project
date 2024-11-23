@@ -88,7 +88,7 @@ export const getMovie = (args) => {
   };
 
   export const getUpcomingMovies = ({ queryKey }) => {
-    const [, idPart] = queryKey;
+    const [,] = queryKey;
   
     return fetch(
       `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}`
@@ -104,4 +104,24 @@ export const getMovie = (args) => {
       throw error
    });
   };
+
+
+  export const getTrendingMovies = ({ queryKey }) => {
+    const [, idPart] = queryKey;
+    const { timeWindow = "day" } = idPart;
+    return fetch(
+       `https://api.themoviedb.org/3/trending/movie/${timeWindow}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    ).then( (response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error
+   });
+  };
+
 
