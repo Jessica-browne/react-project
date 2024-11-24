@@ -10,7 +10,7 @@ const RecommendedPage = (props) => {
     const {id} = useParams();
 
 
-    const { data, error, isLoading, isError } = useQuery(["recommendations", { id }], getMovieRecommendations);
+    const { data, error, isLoading, isError } = useQuery( ["recommended", { id }], getMovieRecommendations );
 
   if (isLoading) {
     return <Spinner />
@@ -24,9 +24,11 @@ const RecommendedPage = (props) => {
 
   return (
     <PageTemplate
-      title="Recommended"
+      title="Recommended Movies"
       movies={movies}
-      action={(movie) => <AddToFavoritesIcon movie={movie} />}
+      action={(movie) => {
+        return <AddToFavoritesIcon movie={movie} />;
+      }}
     />
   );
 };
