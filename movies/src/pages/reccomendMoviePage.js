@@ -1,13 +1,15 @@
 import React from "react";
-import { getMovies } from "../api/tmdb-api";
+import { getMovieRecommendations, getMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
+import { useParams } from "react-router-dom";
 
-const HomePage = (props) => {
+const RecommendedPage = (props) => {
+    const {id} = useParams();
+    const { data, error, isLoading, isError } = useQuery(["recommendations", { id }], getMovieRecommendations);
 
-  const {  data, error, isLoading, isError }  = useQuery('discover', getMovies)
 
   if (isLoading) {
     return <Spinner />
@@ -16,16 +18,16 @@ const HomePage = (props) => {
   if (isError) {
     return <h1>{error.message}</h1>
   }  
+
+
   const movies = data.results;
 
   return (
     <PageTemplate
-      title="Recommendations"
+      title="Recommended"
       movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />
-      }}
+      action={(movie) => <AddToFavoritesIcon movie={movie} />}
     />
-);
+  );
 };
-export default HomePage;
+export default RecommendedPage;

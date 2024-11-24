@@ -7,7 +7,7 @@ import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 
 const TrendingPage = (props) => {
 
-  const {  data, error, isLoading, isError }  = useQuery('discover', [{timeWindow: "day"}], getTrendingMovies)
+  const {  data, error, isLoading, isError }  = useQuery('trending', [{timeWindow: "day"}], getTrendingMovies)
 
   if (isLoading) {
     return <Spinner />
