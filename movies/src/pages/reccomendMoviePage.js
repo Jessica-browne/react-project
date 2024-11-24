@@ -1,5 +1,5 @@
 import React from "react";
-import { getMovieRecommendations, getMovies } from "../api/tmdb-api";
+import { getMovieRecommendations } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
@@ -8,8 +8,9 @@ import { useParams } from "react-router-dom";
 
 const RecommendedPage = (props) => {
     const {id} = useParams();
-    const { data, error, isLoading, isError } = useQuery(["recommendations", { id }], getMovieRecommendations);
 
+
+    const { data, error, isLoading, isError } = useQuery(["recommendations", { id }], getMovieRecommendations);
 
   if (isLoading) {
     return <Spinner />
@@ -18,7 +19,6 @@ const RecommendedPage = (props) => {
   if (isError) {
     return <h1>{error.message}</h1>
   }  
-
 
   const movies = data.results;
 
